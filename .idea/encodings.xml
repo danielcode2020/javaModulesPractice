@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/audi/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/audi/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/bmw/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/bmw/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/carsClient/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/carsClient/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/carsProvider/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/carsProvider/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/carsServiceExample/consumer/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/carsServiceExample/consumer/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/carsServiceExample/locator/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/carsServiceExample/locator/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/carsServiceExample/providerImplementationBmw/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/carsServiceExample/providerImplementationBmw/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/carsServiceExample/providerInterface/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/carsServiceExample/providerInterface/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/carsServiceExample/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/carsServiceExample/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/carsServiceLocator/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/carsServiceLocator/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mercedes/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mercedes/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
+  </component>
+</project>

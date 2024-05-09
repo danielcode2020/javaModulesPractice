@@ -1,0 +1,3 @@
+module carProviderInterface {
+    exports carInterfacePkg;
+}
