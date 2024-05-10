@@ -8,6 +8,7 @@ import java.util.ServiceLoader;
 
 public class CarFinder {
     public static List<Car> findAllCars(){
+        // Write code (serviceLocator) to find implementations of Car
         List<Car> cars = new ArrayList<>();
         ServiceLoader<Car> loader = ServiceLoader.load(Car.class);
         for (Car car : loader){
