@@ -53,3 +53,16 @@ jlink --module-path aTemp --add-modules carConsumer --output carConsumerApp
 ```
 jdeps -s --module-path aTemp aTemp/carConsumer.jar
 ```
+
+### list available modules 
+* all modules 
+```
+java --list-modules
+```
+![img.png](img.png)
+
+* for specific folder with modules
+```
+java -p aTemp --list-modules
+```
+![img_1.png](img_1.png)
