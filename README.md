@@ -54,15 +54,26 @@ jlink --module-path aTemp --add-modules carConsumer --output carConsumerApp
 jdeps -s --module-path aTemp aTemp/carConsumer.jar
 ```
 
+### view dependencies of provider.jar
+```
+jdeps -s aTemp/provider.jar 
+```
+_output :_
+
+![img_2.png](img_2.png)
 ### list available modules 
 * all modules 
 ```
 java --list-modules
 ```
+_output_
+
 ![img.png](img.png)
 
 * for specific folder with modules
 ```
 java -p aTemp --list-modules
 ```
+_output_
+
 ![img_1.png](img_1.png)
