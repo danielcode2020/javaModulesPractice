@@ -12,4 +12,9 @@ public class Bmw implements Car {
     public String getName() {
         return "Bmw";
     }
+
+    @Override
+    public String toString(){
+        return getName() + " " +getSpeed() +"\n";
+    }
 }
