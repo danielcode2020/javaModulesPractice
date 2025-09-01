@@ -1,4 +1,15 @@
-# project to practice modules commands
+# Car modular project ( ocp modules practice)
+
+## removing class and jar files :
+
+list .class and .jar files :
+```bash
+find . -name "*.class" -o -name "*.jar"
+```
+delete .class and .jar files :
+```bash
+find . \( -name "*.class" -o -name "*.jar" \) -delete
+```
 
 aTemp is a folder only for jars
 
