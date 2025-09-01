@@ -1,79 +1,127 @@
-# project to practice modules commands
+# Project to practice modules commands for ocp certification
 
-aTemp is a folder only for jars
 
-all operations in  /ModulesPractice $: 
 
-### 1 service provider interface
-```
-javac -d carProviderInterface carProviderInterface/carInterfacePkg/*.java carProviderInterface/module-info.java
 
-jar -cvf aTemp/provider.jar -C carProviderInterface/ .
-```
-### 2 service locator
-```
-javac -p aTemp -d carServiceLocator carServiceLocator/carLocatorPkg/*.java carServiceLocator/module-info.java
 
-jar -cvf aTemp/carLocator.jar -C carServiceLocator/ .
-```
-### 3 consumer
-```
-javac -p aTemp -d carConsumer carConsumer/consumer/*.java carConsumer/module-info.java
 
-jar -cvf aTemp/carConsumer.jar -C carConsumer/ .
+## Deleting .jar and .class files from current directory
 
-java -p aTemp -m carConsumer/consumer.Main
-```
-### 4 another implementation and calling consumer
-```
-javac -p aTemp -d carProviderImplementationBmw carProviderImplementationBmw/bmwCarImplementation/*.java carProviderImplementationBmw/module-info.java
+find . \( -name "*.class" -o -name "*.jar" \) -delete
 
-jar -cvf aTemp/carBmwImplementation.jar -C carProviderImplementationBmw/ .
-```
-and now we should get another implementation :
-```
-java -p aTemp -m carConsumer/consumer.Main
-```
-### best part is that we simply added another implementation and everything worked without recompiling any provider, locator or anything
- 
-### describing consumer module
-```
-java -p aTemp --describe-module carConsumer
+# 1. Interface provider module
 
-jar --file aTemp/carConsumer.jar --describe-module
-jar -f aTemp/carConsumer.jar -d
-```
-### building custom version of java to run our customer
-```
-jlink --module-path aTemp --add-modules carConsumer --output carConsumerApp
+module-info.java :
 
-./carConsumerApp/bin/java -m carConsumer/consumer.Main
-```
-### view dependencies of carCustomer jar
-```
-jdeps -s --module-path aTemp aTemp/carConsumer.jar
+```java
+module carProviderInterface {
+    exports carInterfacePkg;
+}
 ```
 
-### view dependencies of provider.jar
+## Compiling the interface provider :
+```bash
+  javac --module-path mods -d mods/carProviderInterface src/carProviderInterface/module-info.java src/carProviderInterface/carInterfacePkg/Car.java
 ```
-jdeps -s aTemp/provider.jar 
+or
+```bash
+ javac --module-path mods -d mods/carProviderInterface src/carProviderInterface/*.java
 ```
-_output :_
 
-![img_2.png](img_2.png)
-### list available modules 
-* all modules 
+## Creating modular jar for interface provider :
+```bash
+jar --create --verbose --file jars/provider.jar -C mods/carProviderInterface/ .
 ```
-java --list-modules
-```
-_output_
 
-![img.png](img.png)
+# 2 Interface provider implementation module
 
-* for specific folder with modules
-```
-java -p aTemp --list-modules
-```
-_output_
+module-info.java :
 
-![img_1.png](img_1.png)
+```java
+import bmwCarImplementation.Bmw;
+
+module carProviderImplementationBmw {
+    requires carProviderInterface;
+    provides carInterfacePkg.Car with Bmw;
+}
+```
+
+## Compiling the implementation :
+```bash
+  javac --module-path mods -d mods/carImplementationBMW src/carProviderImplementationBmw/module-info.java src/carProviderImplementationBmw/bmwCarImplementation/Bmw.java
+```
+or
+```bash
+ javac --module-path mods -d mods/carImplementationBMW src/carProviderImplementationBmw/*.java
+```
+
+## Creating modular jar for the implementation :
+
+```bash
+jar --create --verbose --file jars/bmwImplementation.jar -C mods/carImplementationBMW/ .
+```
+
+# 3 Service locator module
+
+module-info.java :
+
+```java
+module carServiceLocator{
+    exports carLocatorPkg;
+    requires carProviderInterface;
+    uses carInterfacePkg.Car;
+}
+```
+## Compiling the service locator :
+```bash
+  javac --module-path mods -d mods/carServiceLocator src/carServiceLocator/module-info.java src/carServiceLocator/carLocatorPkg/CarFinder.java
+```
+or
+```bash
+ javac --module-path mods -d mods/carServiceLocator src/carServiceLocator/*.java
+```
+
+## Creating modular jar for the service locator :
+```bash
+jar --create --verbose --file jars/locator.jar -C mods/carServiceLocator/ .
+```
+
+# 4 Consumer module
+
+module-info.java
+```java
+module carConsumer{
+    requires carServiceLocator;
+    requires carProviderInterface;
+}
+```
+
+## Compiling the consumer :
+```bash
+  javac --module-path mods -d mods/consumer src/carConsumer/module-info.java src/carConsumer/consumer/Main.java
+```
+or
+```bash
+ javac --module-path mods -d mods/consumer src/carConsumer/*.java
+```
+
+## Creating modular jar for the consumer :
+```bash
+jar --create --verbose --file jars/consumer.jar -C mods/consumer/ .
+```
+
+# Compiling multiple modules at once 
+### This command will compile carConsumer and required modules specified in module-info : carServiceLocator, carProviderInterface)  :
+
+* Notice that carProviderImplementationBMW will not be compiled. We should compile it separately.
+```bash
+javac --module-source-path src -d mods --module carConsumer
+```
+
+
+# Running the consumer from exploded modules directory (mods) :
+
+carConsumer for -m is the module name specified in module-info.class
+```bash
+java --module-path mods -m carConsumer/consumer.Main
+```
