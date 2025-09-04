@@ -117,7 +117,7 @@ jar --create --verbose --file jars/consumer.jar -C mods/carConsumer/ .
 ```bash
 javac --module-source-path src -d mods --module carConsumer
 ```
-### Compiling all modules 
+### Compiling all modules
 ```bash
  javac --module-source-path src -d mods --module carConsumer,carProviderImplementationBmw
  ```
@@ -142,7 +142,7 @@ or
  jlink --module-path jars --add-modules carConsumer --output carAppBin
 ```
 
-## Running the application 
+## Running the application
 ```bash
 ./carAppBin/bin/java --module-path mods -m carConsumer/consumer.Main
 ```
@@ -191,13 +191,18 @@ contains consumer
 
 # View dependencies of module (jdeps -p)
 
+doc : https://docs.oracle.com/en/java/javase/17/docs/specs/man/jdeps.html
+
 `-s --summary ` prints summary only
 
 `-jdkinternals --jdk-internals` Finds class-level dependences in the JDK internal APIs.
 
- Works both with modular jars or exploded modules.
- 
-Example : 
+`--list-deps` lists module dependences and package names of jdk internals APIs.
+If other modules are required, they should be on module path.
+
+Works both with modular jars or exploded modules.
+
+Example :
 ```bash
 jdeps --module-path jars jars/consumer.jar
 ```
@@ -301,5 +306,5 @@ contains com.google.gson.internal
 - Service binding funcționează (provides)
 - Doar pachetele exportate sunt accesibile (asta ca sa nu facem public export la API intern)
 - Dependințele sunt verificate la compile-time
-- JAR hell este rezolvat la compile time deodata. In classpath speram ca in runtime se rezolva. 
-Module path la compilare spune de probleme.
+- JAR hell este rezolvat la compile time deodata. In classpath speram ca in runtime se rezolva.
+  Module path la compilare spune de probleme.
