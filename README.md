@@ -1,7 +1,19 @@
 # Project to practice modules commands for ocp certification
 
 
+### `--module-source-path` vs `--module-path`
 
+✅ Key difference:
+
+`--module-path` : Binary dependencies → where already compiled modules (JARs or .class directories) live.
+
+`--module-source-path` : Source dependencies → where source files for modules live (for multi-module compilation).
+
+👉 In short:
+
+Use `--module-path`  when using existing compiled modules.
+
+Use `--module-source-path` when compiling multiple modules from source in one go.
 
 
 
@@ -19,13 +31,14 @@ module carProviderInterface {
 }
 ```
 
-## Compiling the interface provider `(javac -p ... -d ... path/to/*.java)` :
+## Compiling the interface provider `(javac -d ... path/to/*.java)` :
+'*' this module does not depend on other modules, that's why we don't use --module-path option
 ```bash
-  javac --module-path mods -d mods/carProviderInterface src/carProviderInterface/module-info.java src/carProviderInterface/carInterfacePkg/Car.java
+  javac -d mods/carProviderInterface src/carProviderInterface/module-info.java src/carProviderInterface/carInterfacePkg/Car.java
 ```
 or
 ```bash
- javac --module-path mods -d mods/carProviderInterface src/carProviderInterface/*.java
+ javac -d mods/carProviderInterface src/carProviderInterface/module-info.java src/carProviderInterface/carInterfacePkg/*.java
 ```
 
 ## Creating modular jar for interface provider `(jar -cvf ... -C ...)` :
@@ -52,7 +65,7 @@ module carProviderImplementationBmw {
 ```
 or
 ```bash
- javac --module-path mods -d mods/carImplementationBMW src/carProviderImplementationBmw/*.java
+ javac -p mods -d mods/carImplementationBMW src/carProviderImplementationBmw/bmwCarImplementation/*.java
 ```
 
 ## Creating modular jar for the implementation `(jar -cvf ... -C ...)` :
@@ -78,7 +91,7 @@ module carServiceLocator{
 ```
 or
 ```bash
- javac --module-path mods -d mods/carServiceLocator src/carServiceLocator/*.java
+ javac -p mods -d mods/carServiceLocator src/carServiceLocator/module-info.java src/carServiceLocator/carLocatorPkg/*.java
 ```
 
 ## Creating modular jar for the service locator `(jar -cvf ... -C ...)` :
@@ -102,7 +115,7 @@ module carConsumer{
 ```
 or
 ```bash
- javac --module-path mods -d mods/carConsumer src/carConsumer/*.java
+ javac -p mods -d mods/carConsumer src/carConsumer/module-info.java src/carConsumer/consumer/*.java
 ```
 
 ## Creating modular jar for the consumer `(jar -cvf ... -C ...)` :
